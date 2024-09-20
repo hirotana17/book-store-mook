@@ -10,3 +10,6 @@ There are four services: User, Book, Order, and Frontend. The main functionaliti
 - place an order
 
 <img width="1423" alt="Screenshot 2024-09-20 at 19 46 01" src="https://github.com/user-attachments/assets/daf169bc-890e-4941-b39e-622a644e9e08">
+
+### How to Build
+This application can run on Docker containers. The [docker-compose file](https://github.com/hirotana17/book_store/blob/main/frontend/docker-compose.deployment.yml) is stored in the frontend directory.
