@@ -1,10 +1,11 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify
 from models import Order, OrderItem, db
 import requests
 
 order_blueprint = Blueprint('order_api_routes', __name__, url_prefix="/api/order")
 
-USER_API_URL = 'http://user-service-c:5001/api/user'
+# USER_API_URL = 'http://user-service-c:5001/api/user'
+USER_API_URL = 'http://127.0.0.1:5001/api/user'
 
 
 def get_user(api_key):
@@ -48,7 +49,7 @@ def all_orders():
 def add_order_item():
     api_key = request.headers.get('Authorization')
     if not api_key:
-        return jsonify(({'message': 'Not logged in'})), 401
+        return jsonify({'message': 'Not logged in'}), 401
     response = get_user(api_key)
     if not response.get('result'):
         return jsonify({'message': 'Not logged in'}), 401

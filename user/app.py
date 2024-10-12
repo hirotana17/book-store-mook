@@ -3,17 +3,24 @@ from flask import Flask
 from flask.sessions import SecureCookieSessionInterface
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from dotenv import load_dotenv
 import models
 from routes import user_blueprint
 
+
+load_dotenv()
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '4e9AXqhAwq7wwMCUVJA1Bg'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database', 'user.db')
+
 models.init_app(app)
+
 app.register_blueprint(user_blueprint)
+
 login_manager = LoginManager(app)
 
 migrate = Migrate(app, models.db)

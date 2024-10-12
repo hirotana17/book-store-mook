@@ -1,12 +1,16 @@
+import os
 from flask import Flask
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from routes import blueprint
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 app = Flask(__name__, static_folder='static')
 
-app.config['SECRET_KEY'] = 'svH9ppiLLQpfXOoD6lwOdQ'
-app.config['WTF_CSRF_SECRET_KEY'] = 'svH9ppiLLQpfXOoD6lwOdQ'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['UPLOAD_FOLDER'] = 'static/images'
 app.register_blueprint(blueprint)
 
@@ -24,4 +28,4 @@ def load_user(user_id):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5004)

@@ -22,8 +22,6 @@ def cart_count():
 
 @blueprint.route('/', methods=['GET'])
 def index():
-    # print(current_user._get_current_object())
-    # print(dir(current_user._get_current_object()))
     if current_user.is_authenticated:
         session['order'] = OrderClient.get_order_from_session()
     try:
@@ -73,9 +71,9 @@ def login():
                 flash('Welcome back')
                 return redirect(url_for('frontend.index'))
             else:
-                flash('Cannot login')
+                flash('Cannot Login')
         else:
-            flash('Cannot login')
+            flash('Cannot Login')
 
     return render_template('login.html', form=form)
 
@@ -96,11 +94,11 @@ def book_details(slug):
 
     if request.method == 'POST':
         if 'user' not in session:
-            flash("Please login")
+            flash("Please Login")
             return redirect(url_for('frontend.login'))
 
         order = OrderClient.add_to_cart(book_id=book['id'], quantity=1)
-        session['session'] = order['result']
+        session['order'] = order['result']
         flash("Book added to the cart")
 
     return render_template('book_info.html', book=book, form=form)

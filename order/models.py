@@ -21,6 +21,7 @@ class Order(db.Model):
             'order_items': [x.serialize() for x in self.order_items]
         }
 
+
 class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
@@ -33,7 +34,6 @@ class OrderItem(db.Model):
 
     def serialize(self):
         return {
-            'book': self.book_id,
+            'book_id': self.book_id,
             'quantity': self.quantity
         }
-

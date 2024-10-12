@@ -24,7 +24,7 @@ def create_user():
         user.username = request.form["username"]
         user.password = generate_password_hash(request.form['password'],
                                                method='pbkdf2:sha256')
-        user.is_admin = True
+        user.is_admin = False
 
         db.session.add(user)
         db.session.commit()
@@ -61,16 +61,17 @@ def logout():
     if current_user.is_authenticated:
         logout_user()
         return jsonify({'message': 'logged out'})
-    return jsonify({'messasge': 'No user logged in'}), 401
+    return jsonify({'message': 'No user logged in'}), 401
 
 
 @user_blueprint.route('/<username>/exists', methods=['GET'])
 def user_exists(username):
     user = User.query.filter_by(username=username).first()
+    print(user)
     if user:
         return jsonify({'result': True}), 200
 
-    return jsonify({'result': False})
+    return jsonify({'result': False}), 404
 
 
 @user_blueprint.route('/', methods=['GET'])

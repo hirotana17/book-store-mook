@@ -3,9 +3,13 @@ from flask import Flask
 from routes import book_blueprint
 from models import db, Book, init_app
 from flask_migrate import Migrate
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'isJrZSZdDO1iIlLxsy1JoQ'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database', 'book.db')

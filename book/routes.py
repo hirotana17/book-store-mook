@@ -27,7 +27,7 @@ def create_book():
 
         response = {'Message': 'Book Create', 'result': book.serialize()}
     except Exception as e:
-        print(str())
+        print(str(e))
         response = {'message': 'Book creation failed'}
 
     return jsonify(response)
